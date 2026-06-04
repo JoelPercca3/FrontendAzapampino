@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+    overflow: hidden;
+  }
+  body {
+    font-family: system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* Asegura que el html y body ocupen toda la altura */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Mejora el scroll en la página de admin */
+.admin-scroll {
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+}
+
+/* Estilo exacto de Pizza Hut */
+.product-card-title-pizza-hut {
+  box-sizing: border-box;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  font-family: "Sharp Sans", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.224px;
+  line-height: 1.3;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  width: 100%;
+}
+
+.product-card-description-pizza-hut {
+  font-family: "HelveticaNeue", sans-serif;
+  font-size: 0.775rem;
+  font-weight: 400;
+  color: #222121;
+  line-height: 1.3rem;
+  margin: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.product-card-price-pizza-hut {
+  font-family: "National2Condensed", "HelveticaNeue", sans-serif;
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: #1a1919;
+  margin: 0;
+}
+
+.product-card-original-price-pizza-hut {
+  font-family: "HelveticaNeue", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #747576;
+  text-decoration: line-through;
+}
+
+.product-card-discount-badge-pizza-hut {
+  background-color: #3a8701;
+  color: white;
+  font-family: "HelveticaNeue", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.product-card-combo-badge-pizza-hut {
+  background-color: #e4002b;
+  color: white;
+  font-family: "HelveticaNeue", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 4px;
+  display: inline-block;
+}
