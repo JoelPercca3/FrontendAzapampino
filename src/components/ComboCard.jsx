@@ -22,8 +22,10 @@ export function ComboCard({ combo }) {
       <div className="relative w-full pt-[75%] bg-gray-100 overflow-hidden">
         {combo.image_url ? (
           <img
-            src={`${UPLOADS_URL}${item.image_url}`}
+            src={`${UPLOADS_URL}${combo.image_url}`}
             onError={(e) => { e.target.style.display = 'none'; }}
+            alt={combo.name}
+            className="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-5xl">
@@ -31,14 +33,14 @@ export function ComboCard({ combo }) {
           </div>
         )}
 
-        {/* Badge de "COMBO" - estilo Pizza Hut */}
-        <span className="product-card-combo-badge-pizza-hut absolute top-2 left-2 z-10 shadow-sm">
+        {/* Badge de "COMBO" */}
+        <span className="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 z-10 shadow-sm">
           COMBO
         </span>
 
         {/* Badge de descuento si existe */}
         {discountPercent && (
-          <span className="product-card-discount-badge-pizza-hut absolute top-2 right-2 z-10 shadow-sm">
+          <span className="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 z-10 shadow-sm">
             -{discountPercent}%
           </span>
         )}
@@ -46,25 +48,22 @@ export function ComboCard({ combo }) {
 
       {/* Contenido */}
       <div className="p-3 flex flex-col flex-1 gap-2">
-        {/* Título estilo Pizza Hut */}
-        <h3 className="product-card-title-pizza-hut">
+        <h3 className="font-bold text-gray-800 text-base uppercase tracking-wide line-clamp-2 min-h-[3rem]">
           {combo.name}
         </h3>
 
-        {/* Descripción */}
         {combo.description && (
-          <p className="product-card-description-pizza-hut">
+          <p className="text-gray-500 text-xs line-clamp-2">
             {combo.description}
           </p>
         )}
 
-        {/* Precio y botón */}
         <div className="mt-auto pt-2">
           <div className="flex items-center justify-between gap-3">
             <div className="flex flex-col">
               {discountPercent && (
                 <div className="flex items-center gap-2">
-                  <del className="product-card-original-price-pizza-hut">
+                  <del className="text-gray-400 text-xs">
                     S/ {Number(originalPrice).toFixed(2)}
                   </del>
                   <span className="text-xs text-green-600 font-medium">
@@ -72,12 +71,11 @@ export function ComboCard({ combo }) {
                   </span>
                 </div>
               )}
-              <span className="product-card-price-pizza-hut">
+              <span className="text-red-600 font-bold text-xl">
                 S/ {Number(combo.price).toFixed(2)}
               </span>
             </div>
 
-            {/* Botón de agregar */}
             <button
               onClick={handleAdd}
               className="flex items-center justify-center bg-red-600 hover:bg-red-800 text-white font-bold w-10 h-10 transition-all duration-200 hover:scale-105 shadow-md"
