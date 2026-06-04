@@ -1,7 +1,8 @@
 // frontend/src/components/admin/ImageUploader.jsx
 
 import { useState } from 'react';
-import { IoCloudUploadOutline, IoCloseOutline, IoImageOutline } from 'react-icons/io5';
+import { IoCloudUploadOutline, IoCloseOutline } from 'react-icons/io5';
+import { API_URL } from '../../api';
 
 export function ImageUploader({ imageUrl, onImageChange, onImageRemove }) {
     const [uploading, setUploading] = useState(false);
@@ -16,14 +17,21 @@ export function ImageUploader({ imageUrl, onImageChange, onImageRemove }) {
         setUploading(true);
         try {
             const token = localStorage.getItem('pos_token');
-            const res = await fetch('/api/upload', {
+            // ✅ Usa la URL completa del backend
+            const baseUrl = API_URL.replace('/api', '');
+            const res = await fetch(`${baseUrl}/api/upload`, {
                 method: 'POST',
                 headers: token ? { Authorization: `Bearer ${token}` } : {},
                 body: formData,
             });
+
             const data = await res.json();
             if (!data.success) throw new Error(data.message);
-            onImageChange(data.url);
+
+            // La URL que devuelve el backend es algo como "/uploads/xxx.jpg"
+            // La convertimos a URL completa
+            const fullImageUrl = `${baseUrl}${data.url}`;
+            onImageChange(fullImageUrl);
         } catch (err) {
             alert('Error subiendo imagen: ' + err.message);
         } finally {
@@ -57,8 +65,8 @@ export function ImageUploader({ imageUrl, onImageChange, onImageRemove }) {
 
             {!imageUrl && (
                 <label className={`flex flex-col items-center justify-center w-full h-28 border-2 border-dashed rounded-lg cursor-pointer transition-colors ${uploading
-                        ? 'border-gray-400 bg-gray-50'
-                        : 'border-gray-300 hover:border-gray-400 hover:bg-gray-50'
+                    ? 'border-gray-400 bg-gray-50'
+                    : 'border-gray-300 hover:border-gray-400 hover:bg-gray-50'
                     }`}>
                     <div className="flex flex-col items-center justify-center pt-3 pb-4">
                         {uploading ? (
