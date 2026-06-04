@@ -1,4 +1,4 @@
-const BASE = "/api";
+const BASE = import.meta.env.VITE_API_URL || "/api";
 
 async function request(path, options = {}) {
   const token = localStorage.getItem("pos_token");
@@ -17,7 +17,7 @@ async function request(path, options = {}) {
   if (res.status === 401) {
     localStorage.removeItem("pos_token");
     localStorage.removeItem("pos_user");
-    window.location.href = "/login"; // ✅ Cambiado de "/" a "/login"
+    window.location.href = "/login";
   }
 
   if (!res.ok) throw new Error(data.message || "Error en la solicitud");
@@ -58,7 +58,6 @@ export const api = {
   toggleItem: (id) => request(`/admin/items/${id}/toggle`, { method: "PATCH" }),
   deleteItem: (id) => request(`/admin/items/${id}`, { method: "DELETE" }),
   getStats: (date) => request(`/admin/stats${date ? `?date=${date}` : ""}`),
-  // Agrega esto dentro del objeto api en api.js
   getSalesByDay: (params) =>
     request(`/admin/sales-by-day?${new URLSearchParams(params)}`),
 };
