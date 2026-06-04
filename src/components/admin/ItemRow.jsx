@@ -8,10 +8,8 @@ export function ItemRow({ item, onToggle, onEdit, onDelete }) {
         <tr className={`border-b border-gray-100 hover:bg-gray-50 transition-colors ${!item.available ? 'opacity-50' : ''}`}>
             <td className="px-4 py-3">
                 {item.image_url ? (
-                    <img
-                        src={`${UPLOADS_URL}${item.image_url}`}
-                        onError={(e) => { e.target.style.display = 'none'; }}
-                    />
+                    <img src={`${UPLOADS_URL}${item.image_url}`} />
+
                 ) : (
                     <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
                         <IoImageOutline size={18} className="text-gray-400" />

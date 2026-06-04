@@ -17,7 +17,6 @@ export function ImageUploader({ imageUrl, onImageChange, onImageRemove }) {
         setUploading(true);
         try {
             const token = localStorage.getItem('pos_token');
-            // ✅ Usa la URL completa del backend
             const baseUrl = API_URL.replace('/api', '');
             const res = await fetch(`${baseUrl}/api/upload`, {
                 method: 'POST',
@@ -28,10 +27,9 @@ export function ImageUploader({ imageUrl, onImageChange, onImageRemove }) {
             const data = await res.json();
             if (!data.success) throw new Error(data.message);
 
-            // La URL que devuelve el backend es algo como "/uploads/xxx.jpg"
-            // La convertimos a URL completa
-            const fullImageUrl = `${baseUrl}${data.url}`;
-            onImageChange(fullImageUrl);
+            // ✅ Guarda SOLO la ruta relativa (ej: "/uploads/xxx.jpg")
+            // NO guardes la URL completa
+            onImageChange(data.url);  // data.url viene como "/uploads/xxx.jpg"
         } catch (err) {
             alert('Error subiendo imagen: ' + err.message);
         } finally {
@@ -48,7 +46,7 @@ export function ImageUploader({ imageUrl, onImageChange, onImageRemove }) {
             {imageUrl && (
                 <div className="relative w-full h-36 rounded-lg overflow-hidden mb-2 bg-gray-50 border border-gray-200">
                     <img
-                        src={imageUrl}
+                        src={`${API_URL.replace('/api', '')}${imageUrl}`}
                         alt="preview"
                         className="w-full h-full object-cover"
                         onError={e => { e.target.style.display = 'none'; }}

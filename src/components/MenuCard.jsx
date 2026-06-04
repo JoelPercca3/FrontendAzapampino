@@ -41,10 +41,8 @@ export function MenuCard({ item }) {
         className="relative w-full pt-[75%] bg-gray-100 overflow-hidden cursor-pointer"
       >
         {item.image_url ? (
-          <img
-            src={`${UPLOADS_URL}${item.image_url}`}
-            onError={(e) => { e.target.style.display = 'none'; }}
-          />
+          <img src={`${UPLOADS_URL}${item.image_url}`} />
+
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-5xl">
             {item.icon ?? '🍽️'}
