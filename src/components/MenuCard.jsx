@@ -43,8 +43,7 @@ export function MenuCard({ item }) {
         {item.image_url ? (
           <img
             src={`${UPLOADS_URL}${item.image_url}`}
-            alt={item.name}
-            onError={(e) => { e.target.src = '/placeholder-food.png'; }}
+            onError={(e) => { e.target.style.display = 'none'; }}
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-5xl">

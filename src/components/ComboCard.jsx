@@ -22,8 +22,8 @@ export function ComboCard({ combo }) {
       <div className="relative w-full pt-[75%] bg-gray-100 overflow-hidden">
         {combo.image_url ? (
           <img
-            src={`${UPLOADS_URL}${combo.image_url}`}
-            alt={combo.name}
+            src={`${UPLOADS_URL}${item.image_url}`}
+            onError={(e) => { e.target.style.display = 'none'; }}
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-5xl">

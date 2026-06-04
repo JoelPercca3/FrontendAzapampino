@@ -10,8 +10,7 @@ export function ItemRow({ item, onToggle, onEdit, onDelete }) {
                 {item.image_url ? (
                     <img
                         src={`${UPLOADS_URL}${item.image_url}`}
-                        alt={item.name}
-                        className="w-10 h-10 rounded-lg object-cover"
+                        onError={(e) => { e.target.style.display = 'none'; }}
                     />
                 ) : (
                     <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
