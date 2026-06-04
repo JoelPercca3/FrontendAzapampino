@@ -18,23 +18,24 @@ export function ComboCard({ combo }) {
 
   return (
     <div className="group bg-white shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col border border-gray-200">
-      {/* Imagen destacada para combos */}
       <div className="relative w-full pt-[75%] bg-gray-100 overflow-hidden">
         {combo.image_url ? (
-          <img src={`${UPLOADS_URL}${item.image_url}`} />
-
+          <img
+            src={`${UPLOADS_URL}${combo.image_url}`}
+            alt={combo.name}
+            className="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            onError={(e) => { e.target.style.display = 'none'; }}
+          />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-5xl">
             🎁
           </div>
         )}
 
-        {/* Badge de "COMBO" */}
         <span className="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 z-10 shadow-sm">
           COMBO
         </span>
 
-        {/* Badge de descuento si existe */}
         {discountPercent && (
           <span className="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 z-10 shadow-sm">
             -{discountPercent}%
@@ -42,7 +43,6 @@ export function ComboCard({ combo }) {
         )}
       </div>
 
-      {/* Contenido */}
       <div className="p-3 flex flex-col flex-1 gap-2">
         <h3 className="font-bold text-gray-800 text-base uppercase tracking-wide line-clamp-2 min-h-[3rem]">
           {combo.name}
