@@ -1,3 +1,8 @@
+export const API_URL = import.meta.env.VITE_API_URL || "/api";
+export const UPLOADS_URL = import.meta.env.VITE_API_URL
+  ? import.meta.env.VITE_API_URL.replace("/api", "")
+  : "";
+
 const BASE = import.meta.env.VITE_API_URL || "/api";
 
 async function request(path, options = {}) {

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useCart } from '../context/CartContext.jsx';
+import { UPLOADS_URL } from '../api';
+
 
 export function MenuCard({ item }) {
   const { addItem } = useCart();
@@ -40,9 +42,9 @@ export function MenuCard({ item }) {
       >
         {item.image_url ? (
           <img
-            src={item.image_url}
+            src={`${UPLOADS_URL}${item.image_url}`}
             alt={item.name}
-            className="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            onError={(e) => { e.target.src = '/placeholder-food.png'; }}
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-5xl">

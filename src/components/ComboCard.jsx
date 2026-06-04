@@ -1,4 +1,5 @@
 import { useCart } from '../context/CartContext.jsx';
+import { UPLOADS_URL } from '../api';
 
 export function ComboCard({ combo }) {
   const { addItem } = useCart();
@@ -21,9 +22,8 @@ export function ComboCard({ combo }) {
       <div className="relative w-full pt-[75%] bg-gray-100 overflow-hidden">
         {combo.image_url ? (
           <img
-            src={combo.image_url}
+            src={`${UPLOADS_URL}${combo.image_url}`}
             alt={combo.name}
-            className="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-5xl">
