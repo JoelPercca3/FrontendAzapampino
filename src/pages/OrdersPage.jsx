@@ -43,9 +43,15 @@ const PAYMENT_LABEL = {
 };
 
 export function OrdersPage() {
-    const today = new Date().toISOString().slice(0, 10);
+    // ✅ Función para obtener fecha local correcta
+    const getLocalDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
 
-    const [date, setDate] = useState(today);
+    const [date, setDate] = useState(() => getLocalDate(new Date()));
     const [orders, setOrders] = useState([]);
     const [stats, setStats] = useState(null);
     const [selected, setSelected] = useState(null);
