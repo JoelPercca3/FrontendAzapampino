@@ -19,8 +19,15 @@ import {
 } from 'react-icons/io5';
 
 export function DashboardPage() {
-    const today = new Date().toISOString().slice(0, 10);
-    const [date, setDate] = useState(today);
+    // ✅ Función para obtener fecha local correcta
+    const getLocalDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+    const [date, setDate] = useState(() => getLocalDate(new Date()));
     const [salesData, setSalesData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -86,8 +93,8 @@ export function DashboardPage() {
                         <button
                             onClick={() => setChartType('line')}
                             className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md transition-all ${chartType === 'line'
-                                    ? 'bg-gray-900 text-white'
-                                    : 'text-gray-500 hover:bg-gray-200'
+                                ? 'bg-gray-900 text-white'
+                                : 'text-gray-500 hover:bg-gray-200'
                                 }`}
                         >
                             <IoTrendingUpOutline size={14} />
@@ -96,8 +103,8 @@ export function DashboardPage() {
                         <button
                             onClick={() => setChartType('bar')}
                             className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md transition-all ${chartType === 'bar'
-                                    ? 'bg-gray-900 text-white'
-                                    : 'text-gray-500 hover:bg-gray-200'
+                                ? 'bg-gray-900 text-white'
+                                : 'text-gray-500 hover:bg-gray-200'
                                 }`}
                         >
                             <IoBarChartOutline size={14} />
