@@ -68,25 +68,33 @@ export const api = {
 };
 export const getImageUrl = (url) => {
   if (!url) return "";
-  // Si ya es una URL completa de Cloudinary, devolverla tal cual
-  if (url.includes("res.cloudinary.com")) {
-    return url;
-  }
-  // Limpiar URLs mal formadas (caso de error)
+
+  // Limpiar cualquier prefijo malo
   let cleanUrl = url;
-  if (cleanUrl.includes("https//")) {
+
+  // Eliminar prefijos incorrectos de Render
+  if (cleanUrl.includes("backendazapampino.onrender.com")) {
+    // Extraer solo la parte de Cloudinary
+    const match = cleanUrl.match(/https?:\/\/res\.cloudinary\.com\/.+$/);
+    if (match) {
+      cleanUrl = match[0];
+    }
+  }
+
+  // Corregir https// sin :
+  if (cleanUrl.includes("https//") && !cleanUrl.includes("https://")) {
     cleanUrl = cleanUrl.replace("https//", "https://");
   }
-  if (cleanUrl.includes("http://https://")) {
-    cleanUrl = cleanUrl.replace("http://https://", "https://");
+
+  // Si ya es URL completa de Cloudinary, devolverla
+  if (cleanUrl.includes("res.cloudinary.com")) {
+    return cleanUrl;
   }
-  // Si es ruta local, usar UPLOADS_URL
+
+  // Si es ruta local
   if (cleanUrl.startsWith("/uploads/")) {
     return `${UPLOADS_URL}${cleanUrl}`;
   }
-  // Si ya tiene http o https, devolverla
-  if (cleanUrl.startsWith("http://") || cleanUrl.startsWith("https://")) {
-    return cleanUrl;
-  }
+
   return cleanUrl;
 };
