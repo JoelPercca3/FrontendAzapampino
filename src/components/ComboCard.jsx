@@ -1,5 +1,7 @@
 import { useCart } from '../context/CartContext.jsx';
 import { UPLOADS_URL } from '../api';
+import { getImageUrl } from '../api';
+
 
 export function ComboCard({ combo }) {
   const { addItem } = useCart();
@@ -20,8 +22,7 @@ export function ComboCard({ combo }) {
     <div className="group bg-white shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col border border-gray-200">
       <div className="relative w-full pt-[75%] bg-gray-100 overflow-hidden">
         {combo.image_url ? (
-          <img
-            src={`${UPLOADS_URL}${combo.image_url}`}
+          <img src={getImageUrl(combo.image_url)}
             alt={combo.name}
             className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             onError={(e) => { e.target.style.display = 'none'; }}

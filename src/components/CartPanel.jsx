@@ -166,8 +166,8 @@ export function CartPanel({ onOrderSuccess }) {
               key={opt.value}
               onClick={() => setField('paymentMethod', opt.value)}
               className={`flex flex-col items-center gap-1.5 py-2.5 rounded-lg border transition-all ${paymentMethod === opt.value
-                  ? 'bg-gray-900 border-gray-900 text-white'
-                  : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50'
+                ? 'bg-gray-900 border-gray-900 text-white'
+                : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50'
                 }`}
             >
               {paymentMethod === opt.value ? opt.activeIcon : opt.icon}
@@ -233,3 +233,4 @@ export function CartPanel({ onOrderSuccess }) {
     </aside>
   );
 }
+

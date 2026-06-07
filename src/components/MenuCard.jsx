@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useCart } from '../context/CartContext.jsx';
 import { UPLOADS_URL } from '../api';
+import { getImageUrl } from '../api';
+
 
 export function MenuCard({ item }) {
   const { addItem } = useCart();
@@ -40,8 +42,7 @@ export function MenuCard({ item }) {
         className="relative w-full pt-[65%] bg-gray-100 overflow-hidden"
       >
         {item.image_url ? (
-          <img
-            src={`${UPLOADS_URL}${item.image_url}`}
+          <img src={getImageUrl(item.image_url)}
             alt={item.name}
             className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />

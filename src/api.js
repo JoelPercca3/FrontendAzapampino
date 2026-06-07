@@ -66,3 +66,13 @@ export const api = {
   getSalesByDay: (params) =>
     request(`/admin/sales-by-day?${new URLSearchParams(params)}`),
 };
+// ✅ Nueva función para manejar URLs de imágenes
+export const getImageUrl = (url) => {
+  if (!url) return "";
+  // Si ya es una URL completa de Cloudinary, devolverla tal cual
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+    return url;
+  }
+  // Si es ruta local, usar UPLOADS_URL
+  return `${UPLOADS_URL}${url}`;
+};

@@ -1,13 +1,13 @@
 import { IoPencilOutline, IoTrashOutline, IoCheckmarkCircle, IoEllipseOutline, IoImageOutline } from 'react-icons/io5';
 import { UPLOADS_URL } from '../../api';
+import { getImageUrl } from '../../api';
 
 export function ItemRow({ item, onToggle, onEdit, onDelete }) {
     return (
         <tr className={`border-b border-gray-100 hover:bg-gray-50 transition-colors ${!item.available ? 'opacity-50' : ''}`}>
             <td className="px-4 py-2">
                 {item.image_url ? (
-                    <img
-                        src={`${UPLOADS_URL}${item.image_url}`}
+                    <img src={getImageUrl(item.image_url)}
                         alt={item.name}
                         className="w-8 h-8 rounded object-cover bg-gray-100"
                     />
@@ -41,8 +41,8 @@ export function ItemRow({ item, onToggle, onEdit, onDelete }) {
                 <button
                     onClick={() => onToggle(item.id)}
                     className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full transition-colors ${item.available
-                            ? 'bg-emerald-50 text-emerald-700'
-                            : 'bg-gray-100 text-gray-500'
+                        ? 'bg-emerald-50 text-emerald-700'
+                        : 'bg-gray-100 text-gray-500'
                         }`}
                 >
                     {item.available ? <IoCheckmarkCircle size={10} /> : <IoEllipseOutline size={10} />}
