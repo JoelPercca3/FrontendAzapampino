@@ -66,13 +66,27 @@ export const api = {
   getSalesByDay: (params) =>
     request(`/admin/sales-by-day?${new URLSearchParams(params)}`),
 };
-// ✅ Nueva función para manejar URLs de imágenes
 export const getImageUrl = (url) => {
   if (!url) return "";
   // Si ya es una URL completa de Cloudinary, devolverla tal cual
-  if (url.startsWith("http://") || url.startsWith("https://")) {
+  if (url.includes("res.cloudinary.com")) {
     return url;
   }
+  // Limpiar URLs mal formadas (caso de error)
+  let cleanUrl = url;
+  if (cleanUrl.includes("https//")) {
+    cleanUrl = cleanUrl.replace("https//", "https://");
+  }
+  if (cleanUrl.includes("http://https://")) {
+    cleanUrl = cleanUrl.replace("http://https://", "https://");
+  }
   // Si es ruta local, usar UPLOADS_URL
-  return `${UPLOADS_URL}${url}`;
+  if (cleanUrl.startsWith("/uploads/")) {
+    return `${UPLOADS_URL}${cleanUrl}`;
+  }
+  // Si ya tiene http o https, devolverla
+  if (cleanUrl.startsWith("http://") || cleanUrl.startsWith("https://")) {
+    return cleanUrl;
+  }
+  return cleanUrl;
 };

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { IoCloudUploadOutline, IoCloseOutline } from 'react-icons/io5';
-import { API_URL } from '../../api';
+import { API_URL, getImageUrl } from '../../api';
 
 export function ImageUploader({ imageUrl, onImageChange, onImageRemove }) {
     const [uploading, setUploading] = useState(false);
@@ -27,9 +27,8 @@ export function ImageUploader({ imageUrl, onImageChange, onImageRemove }) {
             const data = await res.json();
             if (!data.success) throw new Error(data.message);
 
-            // ✅ Guarda SOLO la ruta relativa (ej: "/uploads/xxx.jpg")
-            // NO guardes la URL completa
-            onImageChange(data.url);  // data.url viene como "/uploads/xxx.jpg"
+            // ✅ Cloudinary ya devuelve la URL completa
+            onImageChange(data.url);
         } catch (err) {
             alert('Error subiendo imagen: ' + err.message);
         } finally {
@@ -46,7 +45,7 @@ export function ImageUploader({ imageUrl, onImageChange, onImageRemove }) {
             {imageUrl && (
                 <div className="relative w-full h-36 rounded-lg overflow-hidden mb-2 bg-gray-50 border border-gray-200">
                     <img
-                        src={`${API_URL.replace('/api', '')}${imageUrl}`}
+                        src={getImageUrl(imageUrl)}
                         alt="preview"
                         className="w-full h-full object-cover"
                         onError={e => { e.target.style.display = 'none'; }}
